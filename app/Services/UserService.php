@@ -2,6 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Interfaces\Service\UserServiceInterface;
 
 class UserService implements UserServiceInterface
 {
@@ -13,7 +17,13 @@ class UserService implements UserServiceInterface
      */
     public function login(array $request)
     {
-        return $request;
+        if (!Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
+            return response()->json(['message' => 'Invalid login details'], 401);
+        }
+
+        $user = User::where('email', $request['email'])->first();
+
+        return $user->createToken('access-token');
     }
 
     /**
@@ -24,6 +34,6 @@ class UserService implements UserServiceInterface
      */
     public function show(int $id)
     {
-        return $id;
+        return User::findOrFail($id);
     }
 }

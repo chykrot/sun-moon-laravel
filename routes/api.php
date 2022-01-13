@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SongController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('login', [UserController::class, 'login']);
-Route::get('user', [UserController::class, 'show']);
+Route::get('user/{id}', [UserController::class, 'show'])->middleware('auth:sanctum');
+
+Route::apiResource('songs', SongController::class);
+// Route::get('songs/{id}', [SongController::class, 'show']);
+// Route::post('songs', [SongController::class, 'store']);
+// Route::patch('songs/{id}', [SongController::class, 'update']);
+// Route::delete('songs/{id}', [SongController::class, 'destroy']);

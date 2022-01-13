@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ShowUserRequest;
 use App\Interfaces\Service\UserServiceInterface;
+
 
 class UserController extends Controller
 {
@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $this->service->login($request->validated());
+        return $this->service->login($request->validated());
     }
 
     /**
@@ -38,6 +38,6 @@ class UserController extends Controller
      */
     public function show(int $id)
     {
-        $this->service->show($id);
+        return $this->service->show($id);
     }
 }

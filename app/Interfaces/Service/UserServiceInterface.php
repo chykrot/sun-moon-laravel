@@ -19,6 +19,6 @@ interface UserServiceInterface
      * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(string $id);
+    public function show(int $id);
 
 }
