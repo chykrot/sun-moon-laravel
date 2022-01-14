@@ -21,10 +21,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('login', [UserController::class, 'login']);
-Route::get('user/{id}', [UserController::class, 'show'])->middleware('auth:sanctum');
+Route::get('songs', [SongController::class, 'index']);
 
-Route::apiResource('songs', SongController::class);
-// Route::get('songs/{id}', [SongController::class, 'show']);
-// Route::post('songs', [SongController::class, 'store']);
-// Route::patch('songs/{id}', [SongController::class, 'update']);
-// Route::delete('songs/{id}', [SongController::class, 'destroy']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+
+    Route::post('logout', [UserController::class, 'logout']);
+    Route::get('user/{id}', [UserController::class, 'show']);
+
+    Route::post('songs', [SongController::class, 'store']);
+    Route::get('songs/{id}', [SongController::class, 'show']);
+    Route::patch('songs/{id}', [SongController::class, 'update']);
+    Route::delete('songs/{id}', [SongController::class, 'destroy']);
+    
+});

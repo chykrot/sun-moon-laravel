@@ -67,7 +67,8 @@
           password: this.password,
         })
         .then(({ data }) => { 
-          AuthService.setAuth(data.plainTextToken)
+          AuthService.setAuth(data.token)
+          AuthService.setUser(data.user)
           this.$router.push('/')
         })
         .catch(({ response }) => alert('Something went wrong'));

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{ Auth, Hash };
 use App\Interfaces\Service\UserServiceInterface;
 
@@ -22,7 +23,9 @@ class UserService implements UserServiceInterface
 
         $user = User::where('email', $request['email'])->first();
 
-        return $user->createToken('access-token');
+        $token = $user->createToken('access-token')->plainTextToken;
+
+        return response()->json(['token' => $token, 'user' => $user]);
     }
 
     /**
@@ -35,4 +38,17 @@ class UserService implements UserServiceInterface
     {
         return User::findOrFail($id);
     }
+
+    /**
+     * Logout user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout($request)
+    {
+        return request()->user()->currentAccessToken()->delete();
+    }
 }
+
+
+

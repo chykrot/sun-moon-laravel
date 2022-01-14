@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div v-if="showModal"
+    <div
       class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex p-6 lg:p-20">
       <div class="relative w-auto my-6 mx-auto max-w-6xl">
-        <!--content-->
         <div
           class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none p-5">
 
@@ -53,7 +52,7 @@
           <div class="flex items-center justify-end p-5 border-t border-solid border-gray-300 rounded-b">
             <button
               class="cursor-pointer text-blue-500 bg-transparent border border-solid border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-5 py-3 rounded outline-none focus:outline-none mr-1 mb-1"
-              type="button" style="transition: all 0.15s ease" v-on:click="toggleModal()">
+              type="button" style="transition: all 0.15s ease" v-on:click="hideUpdate()">
               Cancel
             </button>
             <button
@@ -65,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div v-if="showModal" class="opacity-50 fixed inset-0 z-40 bg-black"></div>
+    <div class="opacity-50 fixed inset-0 z-40 bg-black"></div>
   </div>
 </template>
 
@@ -86,7 +85,7 @@
     },
     data() {
       return {
-        info: {},
+        info: this.details,
         showModal: false,
       };
     },
@@ -102,6 +101,10 @@
 
       updateSong() {
         bus.$emit('updateSong', this.info)
+      },
+
+      hideUpdate() {
+        bus.$emit('hideUpdate', this.info)
       }
     },
   };

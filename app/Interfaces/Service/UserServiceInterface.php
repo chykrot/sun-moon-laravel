@@ -21,4 +21,10 @@ interface UserServiceInterface
      */
     public function show(int $id);
 
+    /**
+     * Logout user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout($request);
 }

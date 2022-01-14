@@ -17,6 +17,17 @@ export default {
      * Removes token from sessionStorage
      */
     flush () {
-        localStorage.removeItem('token')
-    }
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+    },
+    
+
+    setUser (data) {  
+      localStorage.setItem('user', JSON.stringify(data))
+    },
+
+
+    getUser () {
+      return JSON.parse(localStorage.getItem('user'))
+    },
 }

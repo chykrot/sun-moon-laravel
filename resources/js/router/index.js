@@ -2,6 +2,7 @@ window.Vue = require('vue').default;
 import Router from 'vue-router'
 import Login from '../components/Login.vue'
 import Dashboard from '../components/Dashboard.vue'
+import AuthService from '../services/auth'
 
 window.Vue.use(Router)
 
@@ -25,6 +26,15 @@ const createRouter = () => new Router({
 })
 
 const router = createRouter()
+
+router.beforeEach((to, from, next) => {
+
+  if ( to.path === '/login' && AuthService.getAuth() ) {
+    next('/')
+  }
+
+  next()
+})
 
 export function resetRouter() {
   const newRouter = createRouter()

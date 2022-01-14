@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ShowUserRequest;
 use App\Interfaces\Service\UserServiceInterface;
@@ -39,5 +40,16 @@ class UserController extends Controller
     public function show(int $id)
     {
         return $this->service->show($id);
+    }
+
+    /**
+     * Logout the user.
+     *
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        return $this->service->logout($request);
     }
 }

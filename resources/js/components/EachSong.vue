@@ -12,17 +12,17 @@
           </div>
 
           <div 
-            class="cursor-pointer text-lg mt-4"
+            class="cursor-pointer text-lg mt-2"
             @click="showDetails(song)"
           >
             {{ song.lyrics.substring(0, 70) + "..." }}
           </div>
 
-          <div class="flex flex-row justify-between mt-4">
+          <div class="flex flex-row justify-between mt-2">
             <div class="flex flex-col">
               <div class="font-medium text-sm">{{ song.artist }}</div>
               <div class="text-sm text-gray-500">
-                {{ song.created_at }}
+                {{ formatDate(song.created_at) }}
               </div>
             </div>
             <div class="flex flex-col">
@@ -53,8 +53,8 @@
 </template>
 
 <script>
-
   import bus from '../utility/bus'
+  import moment from 'moment'
 
   export default {
     props: ["song"],
@@ -77,7 +77,11 @@
 
       showDetails(song) {
 			  bus.$emit('showDetails', song)
-		  }
+		  },
+
+      formatDate(date) {
+        return moment(String(date)).format("ll")
+      }
 
     },
   };

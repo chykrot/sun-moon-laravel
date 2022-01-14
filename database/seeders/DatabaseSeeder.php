@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\{ User, Song };
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        if (!User::where('email', 'admin@testmail.com')->exists()) {
+            User::factory()->create([
+                'email' => 'admin@testmail.com',
+            ]);
+        }
+        
+        Song::factory(20)->create();
     }
 }
