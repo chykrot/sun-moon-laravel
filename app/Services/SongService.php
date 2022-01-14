@@ -27,7 +27,7 @@ class SongService implements SongServiceInterface
      */
     public function index(array $request)
     {
-        return $this->model->orderBy('title')->paginate($request['per_page'] ?? 10);
+        return $this->model->orderBy('title')->paginate($request['per_page'] ?? 5);
     }
 
     /**
