@@ -5697,9 +5697,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utility_bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utility/bus */ "./resources/js/utility/bus.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _services_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/auth */ "./resources/js/services/auth.js");
+/* harmony import */ var _utility_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utility/bus */ "./resources/js/utility/bus.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -5754,32 +5755,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["song"],
   components: {},
-  computed: {},
+  computed: {
+    user: function user() {
+      return _services_auth__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
+    }
+  },
   data: function data() {
     return {};
   },
   mounted: function mounted() {},
   methods: {
     edit: function edit(song) {
-      _utility_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('editSong', {
+      _utility_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('editSong', {
         song: song
       });
     },
     remove: function remove(id) {
-      _utility_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('deleteSong', {
+      _utility_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('deleteSong', {
         id: id
       });
     },
     showDetails: function showDetails(song) {
-      _utility_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('showDetails', song);
+      _utility_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('showDetails', song);
     },
     formatDate: function formatDate(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(date)).format("ll");
+      return moment__WEBPACK_IMPORTED_MODULE_2___default()(String(date)).format("ll");
     }
   }
 });
@@ -51644,33 +51652,37 @@ var render = function () {
             _c("div", { staticClass: "flex flex-col" }),
             _vm._v(" "),
             _c("div", { staticClass: "flex flex-col items-center" }, [
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "cursor-pointer text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-orange-600 bg-orange-200 uppercase last:mr-0 mr-1",
-                  on: {
-                    click: function ($event) {
-                      return _vm.edit(_vm.song)
+              _vm.user
+                ? _c(
+                    "span",
+                    {
+                      staticClass:
+                        "cursor-pointer text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-orange-600 bg-orange-200 uppercase last:mr-0 mr-1",
+                      on: {
+                        click: function ($event) {
+                          return _vm.edit(_vm.song)
+                        },
+                      },
                     },
-                  },
-                },
-                [_vm._v("\n              Update\n            ")]
-              ),
+                    [_vm._v("\n              Update\n            ")]
+                  )
+                : _vm._e(),
               _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "cursor-pointer text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-red-600 bg-red-200 uppercase last:mr-0 mr-1 mt-1",
-                  on: {
-                    click: function ($event) {
-                      return _vm.remove(_vm.song.id)
+              _vm.user
+                ? _c(
+                    "span",
+                    {
+                      staticClass:
+                        "cursor-pointer text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-red-600 bg-red-200 uppercase last:mr-0 mr-1 mt-1",
+                      on: {
+                        click: function ($event) {
+                          return _vm.remove(_vm.song.id)
+                        },
+                      },
                     },
-                  },
-                },
-                [_vm._v("\n              Delete\n            ")]
-              ),
+                    [_vm._v("\n              Delete\n            ")]
+                  )
+                : _vm._e(),
             ]),
           ]),
         ]),

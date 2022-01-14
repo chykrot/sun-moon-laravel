@@ -29,14 +29,16 @@
               
             </div>
             <div class="flex flex-col items-center">
-              <span 
+              <span
+                v-if="user" 
                 class="cursor-pointer text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-orange-600 bg-orange-200 uppercase last:mr-0 mr-1"
                 @click="edit(song)"
               >
                 Update
               </span>
 
-              <span 
+              <span
+                v-if="user" 
                 class="cursor-pointer text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-red-600 bg-red-200 uppercase last:mr-0 mr-1 mt-1"
                 @click="remove(song.id)"
               >
@@ -53,13 +55,18 @@
 </template>
 
 <script>
+  import AuthService from '../services/auth'
   import bus from '../utility/bus'
   import moment from 'moment'
 
   export default {
     props: ["song"],
     components: {},
-    computed: {},
+    computed: {
+      user() {
+        return AuthService.getUser() 
+      }
+    },
     data() {
       return {
 
